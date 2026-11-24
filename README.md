@@ -10,14 +10,6 @@ NutriNLP is a Streamlit web app for nutrition analysis. You type a meal in plain
 
 This is a course project for **SE333: Artificial Intelligence**.
 
-## Team
-
-| Name | Student ID |
-|------|------------|
-| Payel Saha | 232-35-275 |
-| Mst Sayida Parvin | 232-35-280 |
-| Afifa Rahman | 232-35-544 |
-
 ## How it works
 
 1. **Data cleaning** (`eda.py`): loads `data/ingredients_metadata.csv`, removes duplicates, missing values and negative values, saves the clean copy to `data/processed/cleaned_ingredients.csv`, and draws the EDA charts.
