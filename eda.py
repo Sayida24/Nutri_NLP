@@ -3,6 +3,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 
+# Run relative to the project folder, no matter where the script is started from
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 # --- 1. SETUP FOLDERS ---
 # Create folders if they don't exist to avoid errors
 if not os.path.exists('plots'): os.makedirs('plots')

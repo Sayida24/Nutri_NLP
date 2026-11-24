@@ -9,6 +9,7 @@ from xgboost import XGBClassifier
 # 1. --- CONNECTION TO CENTRAL PIPELINE ---
 # This allows Python to find TF_IDF.py in the parent folder
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+PLOTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'plots')
 
 try:
     from TF_IDF import prepare_features
@@ -37,8 +38,8 @@ print("\nDetailed Classification Report:")
 print(classification_report(y_test, y_pred, target_names=le.classes_))
 
 # 6. --- SAVE THE CONFUSION MATRIX AS AN IMAGE ---
-if not os.path.exists('../plots'):
-    os.makedirs('../plots')
+if not os.path.exists(PLOTS_DIR):
+    os.makedirs(PLOTS_DIR)
 
 plt.figure(figsize=(8,6))
 cm = confusion_matrix(y_test, y_pred)
@@ -54,7 +55,7 @@ clf = XGBClassifier(learning_rate=0.05, n_estimators=100, random_state=42)
 clf.fit(X_train, y_train)
 print(f"XGBoost Learning Rate: {clf.get_params()['learning_rate']}")
 # Save to the root plots folder
-plot_path = f"../plots/{model_name}_cm.png"
+plot_path = os.path.join(PLOTS_DIR, f"{model_name}_cm.png")
 plt.savefig(plot_path)
 print(f"\n✅ Success: Confusion Matrix saved to: {plot_path}")
 plt.close()

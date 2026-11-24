@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -7,7 +8,8 @@ from preprocess import clean_ingredients
 def prepare_features():
     # 1. Load the cleaned data from EDA
     # Note: Ensure EDA.py has been run to create this file
-    df = pd.read_csv('data/processed/cleaned_ingredients.csv')
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    df = pd.read_csv(os.path.join(base_dir, 'data', 'processed', 'cleaned_ingredients.csv'))
 
     # 2. Unified Threshold Logic
     def apply_thresholds(cal_per_g):

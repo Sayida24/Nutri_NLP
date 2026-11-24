@@ -3,5 +3,7 @@ numpy
 scikit-learn
 nltk
 xgboost
-flask
 streamlit
+matplotlib
+seaborn
+flask

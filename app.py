@@ -12,14 +12,14 @@ st.set_page_config(page_title="NutriNLP - Intelligent Nutrition", layout="wide")
 # --- 2. LOAD DATA & MODELS ---
 @st.cache_resource
 def load_tools():
-    model_path = 'models/best_model.pkl'
-    tfidf_path = 'models/tfidf.pkl'
-    le_path = 'models/encoder.pkl'
-    csv_path = 'data/processed/cleaned_ingredients.csv'
-    
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    model_path = os.path.join(base_dir, 'models', 'best_model.pkl')
+    tfidf_path = os.path.join(base_dir, 'models', 'tfidf.pkl')
+    le_path = os.path.join(base_dir, 'models', 'encoder.pkl')
+    csv_path = os.path.join(base_dir, 'data', 'processed', 'cleaned_ingredients.csv')
+
     if not os.path.exists(model_path):
-        st.error("Model files not found! Please run your training scripts first.")
-        return None, None, None, None
+        return None, None, None, None, None
 
     model = pickle.load(open(model_path, 'rb'))
     tfidf = pickle.load(open(tfidf_path, 'rb'))
@@ -34,6 +34,10 @@ def load_tools():
     return model, tfidf, le, metadata, model_display_name
 
 model, tfidf, le, metadata, model_name = load_tools()
+
+if model is None:
+    st.error("Model files not found! Run `python model_scripts/6_knn.py` first.")
+    st.stop()
 
 # --- 3. EXTENSIVE MANUAL SWAP DATABASE ---
 HEALTHY_SWAPS = {
